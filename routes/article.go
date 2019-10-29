@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"../config"
-	"../models"
+	"github.com/Mbenx/Rest-Api-Basic/config"
+	"github.com/Mbenx/Rest-Api-Basic/models"
 	"github.com/gin-gonic/gin"
 	"github.com/gosimple/slug"
 )

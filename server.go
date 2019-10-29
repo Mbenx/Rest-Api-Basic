@@ -1,8 +1,8 @@
 package main
 
 import (
-	config "./config"
-	"./routes"
+	"github.com/Mbenx/Rest-Api-Basic/config"
+	"github.com/Mbenx/Rest-Api-Basic/routes"
 	"github.com/gin-gonic/gin"
 )
 

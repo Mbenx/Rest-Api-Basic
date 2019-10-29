@@ -1,7 +1,7 @@
 package config
 
 import (
-	"../models"
+	"github.com/Mbenx/Rest-Api-Basic/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" // for mysql database
 )
@@ -17,5 +17,5 @@ func InitDB() {
 		panic("failed to connect database")
 	}
 
-	DB.AutoMigrate(models.Article{})
+	DB.AutoMigrate(&models.Article{})
 }

@@ -1,12 +1,13 @@
 package routes
 
 import (
-	"../config"
+	"github.com/Mbenx/Rest-Api-Basic/config"
+	"github.com/Mbenx/Rest-Api-Basic/models"
 	"github.com/gin-gonic/gin"
 )
 
-func getUsers(c *gin.Context) {
-	items := models.[]Karyawan{}
+func GetUsers(c *gin.Context) {
+	items := []models.Karyawan{}
 	// db.First(&article, 1)
 	config.DB.Find(&items)
 
@@ -16,6 +17,6 @@ func getUsers(c *gin.Context) {
 	})
 }
 
-func postUsers(c *gin.Context) {
+func PostUsers(c *gin.Context) {
 
 }
