@@ -7,11 +7,12 @@ import (
 	"github.com/gosimple/slug"
 )
 
+// GetArticle ...
 func GetArticle(c *gin.Context) {
 	slug := c.Param("slug")
-	// items := []Article{}
-	var items models.Article
-	if config.DB.First(&items, "slug = ?", slug).RecordNotFound() {
+	// item := []models.Article{}
+	var item models.Article
+	if config.DB.First(&item, "slug = ?", slug).RecordNotFound() {
 		c.JSON(404, gin.H{
 			"status":  "error",
 			"message": "record not found",
@@ -20,13 +21,16 @@ func GetArticle(c *gin.Context) {
 		return
 	}
 
+	// log.Printf("Hasil Query", item)
+
 	c.JSON(200, gin.H{
 		"message": "Welcome to Golang",
 		"slug":    slug,
-		"data":    items,
+		"data":    item,
 	})
 }
 
+// PostArticle ...
 func PostArticle(c *gin.Context) {
 	item := models.Article{
 		Title: c.PostForm("title"),

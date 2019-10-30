@@ -17,6 +17,13 @@ func main() {
 		v1.GET("/article/:slug", routes.GetArticle)
 		v1.POST("/article", routes.PostArticle)
 
+		auth := v1.Group("/auth")
+		{
+			auth.GET("/:provider", routes.RedirectHandler)
+			auth.GET("/:provider/callback", routes.CallbackHandler)
+			// auths.Post("/", routes.Post)
+		}
+
 		blogs := v1.Group("/blogs")
 		{
 			blogs.GET("/", routes.GetBlogs)
