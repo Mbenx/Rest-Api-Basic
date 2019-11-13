@@ -5,13 +5,17 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/Mbenx/Rest-Api-Basic/config"
 	"github.com/Mbenx/Rest-Api-Basic/models"
 	"github.com/danilopolani/gocialite/structs"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/subosito/gotenv"
 )
+
+var JWT_SECRET = "secret"
 
 // var Gocial = gocialite.NewDispatcher()
 
@@ -110,10 +114,13 @@ func CallbackHandler(c *gin.Context) {
 	}
 
 	var newUser = getOrRegisterUser(provider, user)
+	var jwtToken = createToken(&newUser)
 
 	c.JSON(200, gin.H{
-		"message": "Login Berhasil",
-		"data":    newUser,
+		"message":  "Login Berhasil",
+		"data":     newUser,
+		"token":    token,
+		"jwtToken": jwtToken,
 	})
 
 	// Print in terminal user information
@@ -146,4 +153,25 @@ func getOrRegisterUser(provider string, user *structs.User) models.User {
 	} else {
 		return userData
 	}
+}
+
+func createToken(user *models.User) string {
+	// Create a new token object, specifying signing method and the claims
+	// you would like it to contain.
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id":   user.ID,
+		"user_role": user.Role,
+		"exp":       time.Now().AddDate(0, 0, 3).Unix(),
+		"iat":       time.Now().Unix(),
+	})
+
+	// Sign and get the complete encoded token as a string using the secret
+	tokenString, err := jwtToken.SignedString([]byte(JWT_SECRET))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(tokenString)
+	return tokenString
+
 }
