@@ -12,7 +12,7 @@ var DB *gorm.DB
 // InitDB ...
 func InitDB() {
 	var err error
-	DB, err = gorm.Open("mysql", "root:h3ru@mysql@/php_basic")
+	DB, err = gorm.Open("mysql", "root:H3ru@mysql@/go_basic")
 	if err != nil {
 		panic("failed to connect database")
 	}
